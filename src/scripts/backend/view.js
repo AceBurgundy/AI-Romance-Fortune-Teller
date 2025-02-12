@@ -5,7 +5,6 @@ const { promises, writeFileSync, readFileSync } = require("fs");
 const path = require('path');
 
 const Docxtemplater = require('docxtemplater');
-const {app} = require('electron');
 const PizZip = require('pizzip');
 
 var basepath = app.getAppPath();
