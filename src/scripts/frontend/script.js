@@ -1,16 +1,25 @@
-import { generatePrediction } from "./predictions.js";
-import { spawnHeart } from "./spawn-hearts.js";
+/* eslint-disable no-undef */
+import { generatePrediction } from './predictions.js';
+import { spawnHeart } from './spawn-hearts.js';
 
-const video = document.getElementById("camera");
+const video = document.getElementById('camera');
 
-/** @type {HTMLVideoElement} */
-const videoBackground = document.getElementById("background-video");
+let videoWidth = video.clientWidth;
+let videoHeight = video.clientHeight;
 
-const cameraBox = document.getElementById("content-camera");
+function updateVideoSize() {
+  videoWidth = video.clientWidth;
+  videoHeight = video.clientHeight;
+}
 
-const start = document.getElementById("start-button");
-const predictingPopup = document.getElementById("predicting-popup");
-const predictingPopupText = document.getElementById("predicting-popup-text");
+// Update on window resize
+window.addEventListener('resize', updateVideoSize);
+
+const cameraBox = document.getElementById('content-camera');
+
+const start = document.getElementById('start-button');
+const predictingPopup = document.getElementById('predicting-popup');
+const predictingPopupText = document.getElementById('predicting-popup-text');
 
 let showHearts = false;
 
@@ -23,51 +32,51 @@ Promise.all([
   faceapi.nets.faceRecognitionNet.loadFromUri('scripts/frontend/models'),
   faceapi.nets.faceExpressionNet.loadFromUri('scripts/frontend/models')
 ])
-.then(() => {
-  stopActions = false;
+    .then(() => {
+      stopActions = false;
 
-  navigator.getUserMedia(
-    { video: {} },
-    stream => video.srcObject = stream,
-    error => console.error(error)
-  )
-});
+      navigator.getUserMedia(
+          { video: {} },
+          stream => video.srcObject = stream,
+          error => console.error(error)
+      );
+    });
 
 video.onplay = event => {
-  const canvas = faceapi.createCanvasFromMedia(video)
-  cameraBox.append(canvas)
+  const canvas = faceapi.createCanvasFromMedia(video);
+  cameraBox.append(canvas);
 
-  const size = { width: video.width, height: video.height }
-  faceapi.matchDimensions(canvas, size)
+  const size = { width: videoWidth, height: videoHeight };
+  faceapi.matchDimensions(canvas, size);
 
   setInterval(async () => {
     const detections = await faceapi.detectAllFaces(
-      video, 
-      new faceapi.TinyFaceDetectorOptions()
+        video,
+        new faceapi.TinyFaceDetectorOptions()
     )
-      .withFaceLandmarks()
-      .withFaceExpressions()
+        .withFaceLandmarks()
+        .withFaceExpressions();
 
-    const resizedDetections = faceapi.resizeResults(detections, size)
-    const context = canvas.getContext('2d')
-    context.clearRect(0, 0, canvas.width, canvas.height)
+    const resizedDetections = faceapi.resizeResults(detections, size);
+    const context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
     // Set custom color for bounding box
     const drawOptions = {
       label: '',
       boxColor: 'red', // Change this to your desired color
       lineWidth: 5
-    }
+    };
 
     resizedDetections.forEach(det => {
-      const box = det.detection.box
-      const drawBox = new faceapi.draw.DrawBox(box, drawOptions)
-      drawBox.draw(canvas)
-    })
+      const box = det.detection.box;
+      const drawBox = new faceapi.draw.DrawBox(box, drawOptions);
+      drawBox.draw(canvas);
+    });
 
     detectedFaces = resizedDetections.length;
-  }, 100)
-}
+  }, 100);
+};
 
 setInterval(() => {
   if (showHearts) spawnHeart();
@@ -78,16 +87,16 @@ function predict() {
 
   // check number of people in the camera
   if (detectedFaces <= 0) {
-    document.getElementById("prediction").textContent = "No face detected";
-    predictingPopup.classList.remove("show")
-    predictingPopupText.textContent = "Predicting";  
-    stopActions = false; 
+    document.getElementById('prediction').textContent = 'No face detected';
+    predictingPopup.classList.remove('show');
+    predictingPopupText.textContent = 'Predicting';
+    stopActions = false;
     return;
   }
 
   stopActions = true;
   showHearts = true;
-  predictingPopup.classList.add("show");
+  predictingPopup.classList.add('show');
 
   let countdown = 5;
 
@@ -101,11 +110,11 @@ function predict() {
     if (countdown < 0) {
       clearInterval(interval);
 
-      predictingPopup.classList.remove("show")
-      predictingPopupText.textContent = "Predicting";
+      predictingPopup.classList.remove('show');
+      predictingPopupText.textContent = 'Predicting';
 
-      const predicted = generatePrediction(detectedFaces)
-      document.getElementById("prediction").textContent = predicted
+      const predicted = generatePrediction(detectedFaces);
+      document.getElementById('prediction').textContent = predicted;
 
       const speech = new SpeechSynthesisUtterance(predicted);
       window.speechSynthesis.speak(speech);
@@ -121,14 +130,14 @@ function predict() {
 
 start.onclick = _ => predict();
 
-window.onkeydown = (event) => {
+window.onkeydown = event => {
   if (event.key === 'p') {
-    window.ipcRenderer.invoke("print", 
-      document.getElementById("prediction").textContent
+    window.ipcRenderer.invoke('print',
+        document.getElementById('prediction').textContent
     );
   }
 
-  if (event.key === " ") {
+  if (event.key === ' ') {
     predict();
   }
 };
