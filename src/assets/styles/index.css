@@ -47,11 +47,14 @@ body > * {
     padding: 1rem;
     padding-bottom: unset;
     position: relative;
+    left: 10%;
+    top: 0;
+    z-index: -1;
 }
 
 #content-camera > canvas {
     position: absolute;
-    left: 50%;
+    left: 60%;
     top: 50%;
     transform: translate(-50%, -50%);
 }
@@ -94,6 +97,7 @@ body > * {
     position: absolute;
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .image-box > p {
