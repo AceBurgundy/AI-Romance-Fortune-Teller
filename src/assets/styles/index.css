@@ -1,0 +1,94 @@
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+body > * {
+    width: 100%;
+    height: 100%;
+    border: 2px solid black;
+}
+
+#predicting-popup {
+    width: 50%;
+    height: 200px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -0%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 3;
+}
+
+#predicting-popup.show {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+}
+
+#predicting-popup-text {
+    font-size: 4rem;
+}
+
+#content {
+    display: flex;
+}
+
+#content-camera {
+    padding: 1rem;
+    position: relative;
+}
+
+#content-camera > canvas {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#camera {
+    object-fit: cover;
+}
+
+#content-actions {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 5rem;
+}
+
+#prediction {
+    font-size: 2.5rem;
+    width: 90%;
+    text-align: center;
+}
+
+#start-button {
+    width: 60%;
+    height: 30%;
+    cursor: pointer;
+}
+
+.image-box {
+    position: relative;
+}
+
+.image-box > img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.image-box > p {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    text-align: center;
+}

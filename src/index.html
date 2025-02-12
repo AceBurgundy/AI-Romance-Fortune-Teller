@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Imagery</title>
+    <link rel="stylesheet" href="assets/styles/root.css">
+    <script src="./scripts/frontend/face-api.min.js"></script>
+    <script src="./scripts/frontend/script.js" type="module"></script>
+  </head>
+  <body>
+    <div id="title" class="image-box">
+      <img src="./assets/images/load.webp" alt="" srcset="">
+      <p id="title-text">Title Placeholder</p>
+    </div>
+    <div id="content">
+      <div id="content-camera">
+        <video id="camera" autoplay width="1000" height="650"></video>
+      </div>
+      <div id="content-actions">
+        <p id="prediction">No Prediction</p>
+        <div id="start-button" class="image-box">
+          <img src="./assets/images/load.webp" alt="" srcset="">
+          <p id="start-button-text">Start</p>
+        </div>
+      </div>
+    </div>
+    <div id="predicting-popup" class="image-box">
+      <img src="./assets/images/load.webp" alt="" srcset="">
+      <p id="predicting-popup-text">Predicting</p>
+    </div>
+  </body>
+</html>
