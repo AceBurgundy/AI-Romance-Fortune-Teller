@@ -34,6 +34,7 @@ const createWindow = () => {
     width: 1080,
     enableBlinkFeatures: 'Autofill',
     autoHideMenuBar: true,
+    fullscreen: true,
     icon,
     show: false
   });
