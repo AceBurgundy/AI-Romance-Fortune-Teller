@@ -63,6 +63,17 @@ body > * {
     object-fit: cover;
     width: 60vw;
     height: 65vh;
+    position: relative;
+}
+
+#camera-border {
+    position: absolute;
+    width: 65vw;
+    height: 70vh;
+    top: 0%;
+    left: 5%;
+    z-index: 2;
+    pointer-events: none;
 }
 
 #content-actions {
@@ -76,8 +87,8 @@ body > * {
 }
 
 #prediction {
-    font-size: 2rem;
-    width: 90%;
+    font-size: 1.4rem;
+    width: 100%;
     display: grid;
     place-items: center;
     text-align: center;
