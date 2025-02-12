@@ -2,7 +2,17 @@ import { generatePrediction } from "./predictions.js";
 import { spawnHeart } from "./spawn-hearts.js";
 
 const video = document.getElementById("camera");
+
+/** @type {HTMLVideoElement} */
+const videoBackground = document.getElementById("background-video");
+
 const cameraBox = document.getElementById("content-camera");
+
+const start = document.getElementById("start-button");
+const predictingPopup = document.getElementById("predicting-popup");
+const predictingPopupText = document.getElementById("predicting-popup-text");
+
+let showHearts = false;
 
 let stopActions = true;
 let detectedFaces = 0;
@@ -56,21 +66,27 @@ video.onplay = event => {
     })
 
     detectedFaces = resizedDetections.length;
-    // faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
   }, 100)
 }
 
-const start = document.getElementById("start-button");
-const predictingPopup = document.getElementById("predicting-popup");
-const predictingPopupText = document.getElementById("predicting-popup-text");
+setInterval(() => {
+  if (showHearts) spawnHeart();
+}, 200);
 
-let predicting = false;
-
-start.onclick = async event => {
+function predict() {
   if (stopActions) return;
 
+  // check number of people in the camera
+  if (detectedFaces <= 0) {
+    document.getElementById("prediction").textContent = "No face detected";
+    predictingPopup.classList.remove("show")
+    predictingPopupText.textContent = "Predicting";  
+    stopActions = false; 
+    return;
+  }
+
   stopActions = true;
-  predicting = true;
+  showHearts = true;
   predictingPopup.classList.add("show");
 
   let countdown = 5;
@@ -79,51 +95,40 @@ start.onclick = async event => {
     predictingPopupText.textContent = countdown;
     countdown--;
 
+    // stop hearts early
+    if (countdown <= 2) showHearts = false;
+
     if (countdown < 0) {
       clearInterval(interval);
-      predict(); // Call predict() when countdown reaches 0
+
+      predictingPopup.classList.remove("show")
+      predictingPopupText.textContent = "Predicting";
+
+      const predicted = generatePrediction(detectedFaces)
+      document.getElementById("prediction").textContent = predicted
+
+      const speech = new SpeechSynthesisUtterance(predicted);
+      window.speechSynthesis.speak(speech);
+
+      // Wait for speech to finish before allowing actions again
+      speech.onend = () => {
+        // allow click on button again
+        stopActions = false;
+      };
     }
   }, 1000);
-};
-
-// Spawn hearts only if stopActions is true
-setInterval(() => {
-  if (predicting) spawnHeart()
-}, 100);
-
-function predict() {
-  // check number of people in the camera
-  if (detectedFaces <= 0) {
-    document.getElementById("prediction").textContent = "No face detected";
-    predictingPopup.classList.remove("show")
-    predictingPopupText.textContent = "Predicting";  
-    predicting = false;
-    stopActions = false;
-    return;
-  }
-
-  // stop hearts
-  predicting = false;
-  predictingPopup.classList.remove("show")
-  predictingPopupText.textContent = "Predicting";
-
-  const predicted = generatePrediction(detectedFaces)
-  document.getElementById("prediction").textContent = predicted
-
-  const speech = new SpeechSynthesisUtterance(predicted);
-  window.speechSynthesis.speak(speech);
-
-  // Wait for speech to finish before allowing actions again
-  speech.onend = () => {
-    // allow click on button again
-    stopActions = false;
-  };
 }
+
+start.onclick = _ => predict();
 
 window.onkeydown = (event) => {
   if (event.key === 'p') {
     window.ipcRenderer.invoke("print", 
       document.getElementById("prediction").textContent
     );
+  }
+
+  if (event.key === " ") {
+    predict();
   }
 };

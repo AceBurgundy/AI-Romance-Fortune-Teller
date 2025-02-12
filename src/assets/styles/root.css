@@ -12,7 +12,7 @@
 }
 
 body {
-    background-image: url("../images/red.png");
+    /* background-image: url("../images/red.png"); */
     background-repeat: no-repeat;
     overflow: hidden;
 }

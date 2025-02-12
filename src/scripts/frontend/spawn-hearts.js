@@ -54,10 +54,7 @@ export async function spawnHeart() {
       image.style.left = `${currentX + moveDistanceX}px`;
     }
 
-    const reachedEndY = currentY <= endY;
-    const reachedEndX = Math.abs(currentX - endX) < Math.abs(moveDistanceX);
-
-    if (reachedEndY && reachedEndX) {
+    if (currentY <= endY) {
       image.remove();
       return;
     }
