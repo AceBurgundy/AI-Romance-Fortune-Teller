@@ -61,12 +61,12 @@ const createWindow = () => {
 
 app.on('ready', () => {
   const views = join(__dirname, './scripts/backend/view.js');
- 
+
   if (existsSync(views) === true) {
     require(views);
   }
 
-  createWindow()
+  createWindow();
 });
 
 app.on('window-all-closed', () => {
@@ -83,6 +83,6 @@ process.on('uncaughtException', error => {
 });
 
 process.on('unhandledRejection', reason => {
-  console.log(reason);  
+  console.log(reason);
   app.quit();
 });
