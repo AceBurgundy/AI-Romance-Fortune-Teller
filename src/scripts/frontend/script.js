@@ -95,6 +95,8 @@ function predict() {
   // check number of people in the camera
   if (detectedFaces <= 0) {
     document.getElementById("prediction").textContent = "No face detected";
+    predictingPopup.classList.remove("show")
+    predictingPopupText.textContent = "Predicting";  
     predicting = false;
     stopActions = false;
     return;
