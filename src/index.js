@@ -43,7 +43,7 @@ const createWindow = () => {
       join(__dirname, 'index.html')
   );
 
-  window.webContents.openDevTools();
+  // window.webContents.openDevTools();
 
   window.once('ready-to-show', () => {
     window.maximize();

@@ -13,7 +13,7 @@ const makers = [
     name: '@electron-forge/maker-squirrel',
     config: {
       name: 'ai-love-fortune-teller',
-      title: 'AI Love Fotune Teller',
+      title: 'AI Love Fotune Teller'
     }
   },
   {
