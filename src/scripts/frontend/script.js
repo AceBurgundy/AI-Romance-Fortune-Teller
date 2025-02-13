@@ -11,15 +11,14 @@ const capture = document.getElementById('camera-box');
 const backdrop = document.getElementById('backdrop');
 
 capture.onclick = _ => {
-  window.ipcRenderer.invoke('save-to-desktop');
+  window.ipcRenderer.invoke('save-to-desktop')
+      .then(_ => {
+        backdrop.classList.add('show');
 
-  setTimeout(() => {
-    backdrop.classList.add('show');
-
-    setTimeout(() => {
-      backdrop.classList.remove('show');
-    }, 300);
-  }, 1000);
+        setTimeout(() => {
+          backdrop.classList.remove('show');
+        }, 300);
+      });
 };
 
 start.onmouseover = _ => start.firstElementChild.src = '../src/assets/images/button2.png';
