@@ -18,18 +18,20 @@
       <div></div>
       <div id="content-camera">
         <video id="camera" autoplay></video>
+        <img src="./assets/images/frame.png" id="camera-border" alt="Camera Border">
       </div>
       <div id="content-actions">
         <div id="start-button" class="image-box">
-          <img src="./assets/images/load.webp" alt="" srcset="">
-          <p id="start-button-text">Start</p>
+          <img src="./assets/images/button.png" alt="" srcset="">
+          <p id="start-button-text"></p>
         </div>
       </div>
     </div>
     <p id="prediction">No Prediction</p>
-    <div id="predicting-popup" class="image-box">
-      <img src="./assets/images/load.webp" alt="" srcset="">
-      <p id="predicting-popup-text">Predicting</p>
-    </div>
+    <div id="predicting-popup">
+      <img src="./assets/images/loading.gif" id="loading-gif" alt="Loading" style="display: none;">
+      <span id="predicting-popup-text">Predicting</span>
+  </div>
+  
   </body>
 </html>

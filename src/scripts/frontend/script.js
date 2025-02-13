@@ -89,6 +89,8 @@ function predict() {
   if (detectedFaces <= 0) {
     document.getElementById('prediction').textContent = 'No face detected';
     predictingPopup.classList.remove('show');
+    document.getElementById('loading-gif').style.display = 'none';
+    predictingPopupText.style.display = 'block'; // Show text again
     predictingPopupText.textContent = 'Predicting';
     stopActions = false;
     return;
@@ -98,20 +100,25 @@ function predict() {
   showHearts = true;
   predictingPopup.classList.add('show');
 
+  // Show loading GIF and hide text
+  document.getElementById('loading-gif').style.display = 'block';
+  predictingPopupText.style.display = 'none';
+
   let countdown = 5;
 
   const interval = setInterval(() => {
-    predictingPopupText.textContent = countdown;
     countdown--;
 
-    // stop hearts early
+    // Stop hearts early
     if (countdown <= 2) showHearts = false;
 
     if (countdown < 0) {
       clearInterval(interval);
 
+      // Hide loading GIF and show result text
+      document.getElementById('loading-gif').style.display = 'none';
+      predictingPopupText.style.display = 'block';
       predictingPopup.classList.remove('show');
-      predictingPopupText.textContent = 'Predicting';
 
       const predicted = generatePrediction(detectedFaces);
       document.getElementById('prediction').textContent = predicted;
@@ -121,12 +128,12 @@ function predict() {
 
       // Wait for speech to finish before allowing actions again
       speech.onend = () => {
-        // allow click on button again
         stopActions = false;
       };
     }
   }, 1000);
 }
+
 
 start.onclick = _ => predict();
 

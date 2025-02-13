@@ -28,16 +28,32 @@ body > * {
     opacity: 0;
     pointer-events: none;
     z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #predicting-popup.show {
     transform: translate(-50%, -50%);
     opacity: 1;
+    pointer-events: auto;
 }
 
-#predicting-popup-text {
-    font-size: 4rem;
+/* Loading GIF Styling */
+#loading-gif {
+    width: 300px; /* Adjust the size of the loading animation */
+    height: 300px;
+    display: none;
 }
+
+/* Predicting text */
+#predicting-popup-text {
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 10px;
+}
+
 
 #content {
     display: flex;
@@ -47,14 +63,14 @@ body > * {
     padding: 1rem;
     padding-bottom: unset;
     position: relative;
-    left: 10%;
+    left: 20%;
     top: 0;
     z-index: -1;
 }
 
 #content-camera > canvas {
     position: absolute;
-    left: 60%;
+    left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
 }
@@ -63,6 +79,17 @@ body > * {
     object-fit: cover;
     width: 60vw;
     height: 65vh;
+    position: relative;
+}
+
+#camera-border {
+    position: absolute;
+    width: 65vw;
+    height: 70vh;
+    top: 0%;
+    left: 5%;
+    z-index: 2;
+    pointer-events: none;
 }
 
 #content-actions {
@@ -76,17 +103,18 @@ body > * {
 }
 
 #prediction {
-    font-size: 2rem;
-    width: 90%;
+    font-size: 1.4rem;
+    width: 100%;
     display: grid;
     place-items: center;
     text-align: center;
 }
 
 #start-button {
-    width: 60%;
-    height: 30%;
+    width: 50%;
+    height: 40%;
     cursor: pointer;
+    top: 40%;
 }
 
 .image-box {
