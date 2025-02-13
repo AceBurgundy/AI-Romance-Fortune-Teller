@@ -11,7 +11,10 @@ const rebuildConfig = {};
 const makers = [
   {
     name: '@electron-forge/maker-squirrel',
-    config: {}
+    config: {
+      name: 'ai-love-fortune-teller',
+      title: 'AI Love Fotune Teller',
+    }
   },
   {
     name: '@electron-forge/maker-zip',

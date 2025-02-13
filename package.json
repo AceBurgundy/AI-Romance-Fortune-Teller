@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "description": "Discover the sign for your love",
   "main": "src/index.js",
+  "build": {
+    "appId": "com.aceburgundy"
+  },
   "scripts": {
     "start": "nodemon --exec electron-forge start",
     "simple": "electron-forge start",
