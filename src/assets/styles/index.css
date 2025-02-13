@@ -100,13 +100,17 @@ body > * {
 }
 
 #prediction {
-    font-size: 1.5rem;
-    width: 90%;
+    font-size: calc(4.5vw - 1rem);
+    width: 80%;
+    letter-spacing: 3px;
+    font-family: "Ananda Black";
+    line-height: 4.5rem;
+    margin-bottom: 10rem;
     height: 100%;
     display: grid;
-    padding-top: 15rem;
-    place-items: flex-start;
-    justify-items: center;
+    place-items: center;
+    color: white;
+    /* -webkit-text-stroke: 2px black; */
 }
 
 #start-button {
@@ -115,7 +119,7 @@ body > * {
     cursor: pointer;
     position: absolute;
     bottom: 5%;
-    right: -20%;
+    right: -10%;
     transform: rotate(10deg);
     z-index: 20;
     cursor: pointer;
@@ -127,6 +131,81 @@ body > * {
 
 #title {
     overflow: visible;
+    padding-top: 2.5rem;
+}
+
+#title::before,
+#title::after {
+    content: "";
+    position: absolute;
+    width: 100px;  /* Adjust width */
+    height: 100px; /* Adjust height */
+    background-size: cover;
+    background-position: center;
+    z-index: 10;
+}
+
+#title::before {
+    background-image: url('../images/heart-for-title1.png');
+    left: 10%;  /* Adjust position */
+    top: 50%;
+    transform: translateY(-30%);
+}
+
+#title::after {
+    background-image: url('../images/heart-for-title2.png');
+    right: 10%; /* Adjust position */
+    top: 50%;
+    transform: translateY(-30%);
+}
+
+#title-text {
+    font-size: 2.5rem;
+    line-height: 3.5rem;
+    color: #ff1542;
+    padding-top: 2.5rem;
+}
+
+#camera-box {
+    position: fixed;
+    right: 0%;
+    bottom: 0%;
+    margin: 1rem;
+    height: 100px;
+    width: 100px;
+    display: grid;
+    z-index: 45;
+    place-items: center;
+    background-color: white;
+    cursor: pointer;
+    transition: 250ms;
+    display: none;
+}
+
+#camera-box:hover {
+    height: 90px;
+    width: 90px;  
+}
+
+#camera-box > img {
+    width: 80%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+#backdrop {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    position: fixed;
+    z-index: 55;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#backdrop.show {
+    opacity: 1;
+    pointer-events: none;
 }
 
 .image-box {
@@ -138,6 +217,7 @@ body > * {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    overflow: visible;
 }
 
 .image-box > p {

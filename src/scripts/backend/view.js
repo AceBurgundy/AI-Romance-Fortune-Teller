@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const { ipcMain, app, shell, BrowserWindow } = require('electron');
 const { random } = require('./custom-random.js');
-const { promises, writeFileSync, readFileSync } = require('fs');
+const { promises, writeFileSync, readFileSync, mkdirSync, existsSync } = require('fs');
 const sizeOf = require('image-size');
 const path = require('path');
 
@@ -26,6 +26,28 @@ ipcMain.handle('print', async (event, prediction) => {
   shell.openPath(
       await createDocFile(prediction)
   );
+});
+
+ipcMain.handle('save-to-desktop', async _ => {
+  // print options
+  const window = BrowserWindow.getFocusedWindow();
+  if (!window) throw new Error('No active window found');
+
+  const image = await window.capturePage();
+  const destination = path.join(app.getPath('pictures'), 'AI Love Fortune Teller Captures');
+
+  // Ensure the destination folder exists
+  if (!existsSync(destination) === true) {
+    mkdirSync(destination, { recursive: true });
+  }
+
+  const timeString = new Date().toLocaleTimeString('en-US', { hour12: true }).replace(/:/g, '-');
+
+  // Define the file path and save the image
+  const filePath = path.join(destination, `${timeString} moment.png`);
+  writeFileSync(filePath, image.toPNG());
+
+  shell.openPath(filePath);
 });
 
 /**

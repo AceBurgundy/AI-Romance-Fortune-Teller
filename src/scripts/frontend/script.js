@@ -2,10 +2,29 @@
 import { generatePrediction } from './predictions.js';
 import { spawnHeart } from './spawn-hearts.js';
 
+// Get available voices
+const voices = window.speechSynthesis.getVoices();
+
 const video = document.getElementById('camera');
 const start = document.getElementById('start-button');
+const capture = document.getElementById('camera-box');
+const backdrop = document.getElementById('backdrop');
 
-start.onmouseover = _ => start.firstElementChild.src = '../../assets/images/border2.png'
+capture.onclick = _ => {
+  window.ipcRenderer.invoke('save-to-desktop');
+
+  setTimeout(() => {
+    backdrop.classList.add('show');
+
+    setTimeout(() => {
+      backdrop.classList.remove('show');
+    }, 300);
+  }, 1000);
+};
+
+start.onmouseover = _ => start.firstElementChild.src = '../src/assets/images/button2.png';
+start.onmouseout = _ => start.firstElementChild.src = '../src/assets/images/button1.png';
+
 let videoWidth = video.clientWidth;
 let videoHeight = video.clientHeight;
 
@@ -19,7 +38,6 @@ window.addEventListener('resize', updateVideoSize);
 
 const cameraBox = document.getElementById('content-camera');
 
-const start = document.getElementById('start-button');
 const predictingPopup = document.getElementById('predicting-popup');
 const predictingPopupText = document.getElementById('predicting-popup-text');
 
@@ -82,17 +100,18 @@ video.onplay = event => {
 
 setInterval(() => {
   if (showHearts) spawnHeart();
-}, 200);
+}, 50);
 
 function predict() {
   if (stopActions) return;
+  capture.style.display = 'none';
 
   // check number of people in the camera
   if (detectedFaces <= 0) {
     document.getElementById('prediction').textContent = 'No face detected';
     predictingPopup.classList.remove('show');
     document.getElementById('loading-gif').style.display = 'none';
-    predictingPopupText.style.display = 'block'; // Show text again
+    predictingPopupText.style.display = 'grid'; // Show text again
     predictingPopupText.textContent = 'Predicting';
     stopActions = false;
     return;
@@ -103,7 +122,8 @@ function predict() {
   predictingPopup.classList.add('show');
 
   // Show loading GIF and hide text
-  document.getElementById('loading-gif').style.display = 'block';
+  document.getElementById('loading-gif').style.display = 'grid';
+  document.getElementById('prediction').textContent = 'Predicting';
   predictingPopupText.style.display = 'none';
 
   let countdown = 5;
@@ -112,20 +132,27 @@ function predict() {
     countdown--;
 
     // Stop hearts early
-    if (countdown <= 2) showHearts = false;
+    if (countdown <= 3) showHearts = false;
 
     if (countdown < 0) {
       clearInterval(interval);
 
       // Hide loading GIF and show result text
       document.getElementById('loading-gif').style.display = 'none';
-      predictingPopupText.style.display = 'block';
+      predictingPopupText.style.display = 'grid';
       predictingPopup.classList.remove('show');
 
       const predicted = generatePrediction(detectedFaces);
       document.getElementById('prediction').textContent = predicted;
+      capture.style.display = 'grid';
 
       const speech = new SpeechSynthesisUtterance(predicted);
+
+      // Select a specific voice (change the name to your preference)
+      speech.voice = voices.find(voice =>
+        voice.lang('tl-PH')
+      ) || voices[0];
+
       window.speechSynthesis.speak(speech);
 
       // Wait for speech to finish before allowing actions again

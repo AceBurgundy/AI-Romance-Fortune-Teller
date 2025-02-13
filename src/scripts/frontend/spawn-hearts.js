@@ -10,17 +10,18 @@
  */
 export async function spawnHeart() {
   // Request heart image path
-  const heartPath = await window.ipcRenderer.invoke("random-heart");
+  const heartPath = await window.ipcRenderer.invoke('random-heart');
 
   // Create the image element
-  const image = document.createElement("img");
+  const image = document.createElement('img');
   image.src = heartPath;
-  image.style.position = "absolute";
-  image.style.height = "250px"; // Fixed height
-  image.style.width = "250px"; // Fixed width
-  image.style.border = "none"
-  image.style.objectFit = "cover";
-  
+  image.style.position = 'absolute';
+  image.style.height = '250px'; // Fixed height
+  image.style.width = '250px'; // Fixed width
+  image.style.border = 'none';
+  image.style.objectFit = 'cover';
+  image.style.zIndex = '50';
+
   document.body.appendChild(image);
 
   // Generate random start position
@@ -41,15 +42,15 @@ export async function spawnHeart() {
   const moveDistanceX = 0.5 * (startX < endX ? 1 : -1);
 
   function moveUp() {
-    let currentX = parseFloat(image.style.left);
-    let currentY = parseFloat(image.style.top);
+    const currentX = parseFloat(image.style.left);
+    const currentY = parseFloat(image.style.top);
 
     if (currentY > endY) {
       image.style.top = `${currentY - moveDistanceY}px`;
     }
 
     const shouldMoveX = Math.abs(currentX - endX) > Math.abs(moveDistanceX);
-    
+
     if (shouldMoveX) {
       image.style.left = `${currentX + moveDistanceX}px`;
     }

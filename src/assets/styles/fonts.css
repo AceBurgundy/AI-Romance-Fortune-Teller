@@ -4,3 +4,10 @@
     font-style: normal;
     font-weight: 400;
 }
+
+@font-face {
+    font-family: 'Ananda Black';
+    src: url('../fonts/AnandaBlack.ttf');
+    font-style: normal;
+    font-weight: 400;
+}
