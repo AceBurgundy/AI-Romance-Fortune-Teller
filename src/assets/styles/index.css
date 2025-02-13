@@ -100,11 +100,11 @@ body > * {
 }
 
 #prediction {
-    font-size: calc(4.5vw - 1rem);
+    font-size: calc(4vw - 1rem);
     width: 80%;
     letter-spacing: 3px;
     font-family: "Ananda Black";
-    line-height: 4.5rem;
+    line-height: 3.5rem;
     margin-bottom: 10rem;
     height: 100%;
     display: grid;
@@ -162,29 +162,29 @@ body > * {
 #title-text {
     font-size: 2.5rem;
     line-height: 3.5rem;
-    color: #ff1542;
+    color: #ff0033;
     padding-top: 2.5rem;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Adds a soft shadow */
 }
+
 
 #camera-box {
     position: fixed;
     right: 0%;
     bottom: 0%;
     margin: 1rem;
-    height: 100px;
-    width: 100px;
+    height: 50px;
+    width: 50px;
     display: grid;
     z-index: 45;
     place-items: center;
-    background-color: white;
-    cursor: pointer;
     transition: 250ms;
     display: none;
 }
 
 #camera-box:hover {
-    height: 90px;
-    width: 90px;  
+    height: 60px;
+    width: 60px;  
 }
 
 #camera-box > img {

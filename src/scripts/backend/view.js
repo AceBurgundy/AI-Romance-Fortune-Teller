@@ -75,8 +75,8 @@ async function createDocFile() {
     getImage: tagValue => Buffer.from(tagValue, 'base64'),
     getSize: image => {
       const dimensions = sizeOf(image);
-      const maxWidth = 1030; // Set max width (adjust based on template size)
-      const maxHeight = 700; // Set max height (adjust based on template size)
+      const maxWidth = 650; // Set max width (adjust based on template size)
+      const maxHeight = 440; // Set max height (adjust based on template size)
 
       let { width, height } = dimensions;
       const aspectRatio = width / height;
