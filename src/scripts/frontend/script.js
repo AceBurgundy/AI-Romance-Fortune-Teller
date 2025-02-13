@@ -3,7 +3,9 @@ import { generatePrediction } from './predictions.js';
 import { spawnHeart } from './spawn-hearts.js';
 
 const video = document.getElementById('camera');
+const start = document.getElementById('start-button');
 
+start.onmouseover = _ => start.firstElementChild.src = '../../assets/images/border2.png'
 let videoWidth = video.clientWidth;
 let videoHeight = video.clientHeight;
 
