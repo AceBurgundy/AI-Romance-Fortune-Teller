@@ -7,11 +7,11 @@
  */
 function random(iterable) {
   if (iterable.length === 0) {
-    throw new Error("Cannot choose from an empty array");
+    throw new Error('Cannot choose from an empty array');
   }
 
   const time = (Date.now() / 1000).toString(); // Get current time in seconds
-  const decimal = time.split(".")[1] || ""; // Extract decimal part
+  const decimal = time.split('.')[1] || ''; // Extract decimal part
 
   for (let iteration = decimal.length - 1; iteration >= 0; iteration--) {
     const index = parseInt(decimal[iteration], 10);
@@ -24,4 +24,4 @@ function random(iterable) {
   return iterable[0]; // Fallback if all digits are too high
 }
 
-module.exports = { random }
+module.exports = { random };

@@ -132,9 +132,7 @@ start.onclick = _ => predict();
 
 window.onkeydown = event => {
   if (event.key === 'p') {
-    window.ipcRenderer.invoke('print',
-        document.getElementById('prediction').textContent
-    );
+    window.ipcRenderer.invoke('print');
   }
 
   if (event.key === ' ') {
