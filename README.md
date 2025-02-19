@@ -2,6 +2,10 @@
 
 Welcome to **Electron AI Love Fortune Teller**! 🔮✨ This interactive desktop application, built with Electron and AI, predicts your **love fortune**! Whether you're **single** or in a **relationship**, get entertaining and insightful predictions. You can even **capture a photo 📸** to go along with your fortune!  
 
+## UI
+
+![](sample.jpg)
+
 ## 💑 Who's It For?  
 - **💞 Love Enthusiasts** – Looking for fun and engaging AI-generated love predictions?  
 - **❤️ Couples** – Test your compatibility in a lighthearted way!  
@@ -51,7 +55,7 @@ Welcome to **Electron AI Love Fortune Teller**! 🔮✨ This interactive desktop
 
 ## Acknowledgements
 
-Big thanks to VirHus for the app idea and design! 🎨💡 Your creativity and vision made this project possible. 🚀💖
+Big thanks to ma maan [VirHus](https://github.com/VirHus) for the app idea and design! 🎨💡 Your creativity and vision made this project possible. 🚀💖
 This project is a fun experiment blending AI and Electron to create engaging desktop applications. 🎉 Have fun discovering your love fortune! 💕✨
 
 ## License
