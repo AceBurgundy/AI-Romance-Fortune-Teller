@@ -10,15 +10,25 @@ const start = document.getElementById('start-button');
 const capture = document.getElementById('camera-box');
 const backdrop = document.getElementById('backdrop');
 
-capture.onclick = _ => {
-  window.ipcRenderer.invoke('save-to-desktop')
-      .then(_ => {
-        backdrop.classList.add('show');
+let isCapturing = false;
 
-        setTimeout(() => {
-          backdrop.classList.remove('show');
-        }, 300);
-      });
+capture.onclick = _ => captureImage();
+
+
+function captureImage() {
+  isCapturing = true;
+
+  setTimeout(() => {
+    window.ipcRenderer.invoke('save-to-desktop')
+        .then(_ => {
+          backdrop.classList.add('show');
+
+          setTimeout(() => {
+            backdrop.classList.remove('show');
+            isCapturing = false;
+          }, 300);
+        });
+  }, 500);
 };
 
 start.onmouseover = _ => start.firstElementChild.src = '../src/assets/images/button2.png';
@@ -87,11 +97,13 @@ video.onplay = event => {
       lineWidth: 5
     };
 
-    resizedDetections.forEach(det => {
-      const box = det.detection.box;
-      const drawBox = new faceapi.draw.DrawBox(box, drawOptions);
-      drawBox.draw(canvas);
-    });
+    if (!isCapturing) {
+      resizedDetections.forEach(det => {
+        const box = det.detection.box;
+        const drawBox = new faceapi.draw.DrawBox(box, drawOptions);
+        drawBox.draw(canvas);
+      });
+    }
 
     detectedFaces = resizedDetections.length;
   }, 100);
@@ -172,5 +184,8 @@ window.onkeydown = event => {
 
   if (event.key === ' ') {
     predict();
+  }
+  if (event.key === 'c') {
+    captureImage();
   }
 };
