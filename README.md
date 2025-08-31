@@ -1,6 +1,6 @@
-# 💘 Electron AI Love Fortune Teller [(📌 Samples)](https://www.facebook.com/share/p/16CRjqYTtA/)
+# 💘 Electron Romance Love Fortune Teller [(📌 Samples)](https://www.facebook.com/share/p/16CRjqYTtA/)
 
-Welcome to **Electron AI Love Fortune Teller**! 🔮✨ This interactive desktop application, built with Electron and AI, predicts your **love fortune**! Whether you're **single** or in a **relationship**, get entertaining and insightful predictions. You can even **capture a photo 📸** to go along with your fortune!  
+Welcome to **Electron Romance Love Fortune Teller**! 🔮✨ This interactive desktop application, built with Electron and AI, predicts your **love fortune**! Whether you're **single** or in a **relationship**, get entertaining and insightful predictions. You can even **capture a photo 📸** to go along with your fortune!  
 
 ## UI
 
@@ -33,7 +33,7 @@ Welcome to **Electron AI Love Fortune Teller**! 🔮✨ This interactive desktop
 ## 🚀 Getting Started  
 
 ### 1. Install  
-📥 Download and install **Electron AI Love Fortune Teller** for Windows, macOS, or Linux.  
+📥 Download and install **Electron Romance Love Fortune Teller** for Windows, macOS, or Linux.  
 
 ### 2. Launch the App  
 🖥️ Open the app from your applications menu.  
